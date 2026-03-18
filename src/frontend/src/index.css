@@ -1,0 +1,437 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+    --background: 0.11 0.008 220;
+    --foreground: 0.95 0.005 60;
+    --card: 0.14 0.01 220;
+    --card-foreground: 0.95 0.005 60;
+    --popover: 0.16 0.01 220;
+    --popover-foreground: 0.95 0.005 60;
+    --primary: 0.72 0.12 75;
+    --primary-foreground: 0.12 0.01 220;
+    --secondary: 0.18 0.01 220;
+    --secondary-foreground: 0.85 0.005 60;
+    --muted: 0.17 0.008 220;
+    --muted-foreground: 0.58 0.01 220;
+    --accent: 0.72 0.12 75;
+    --accent-foreground: 0.12 0.01 220;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.24 0.015 220;
+    --input: 0.2 0.012 220;
+    --ring: 0.72 0.12 75;
+    --chart-1: 0.72 0.12 75;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.13 0.009 220;
+    --sidebar-foreground: 0.95 0.005 60;
+    --sidebar-primary: 0.72 0.12 75;
+    --sidebar-primary-foreground: 0.12 0.01 220;
+    --sidebar-accent: 0.18 0.01 220;
+    --sidebar-accent-foreground: 0.85 0.005 60;
+    --sidebar-border: 0.24 0.015 220;
+    --sidebar-ring: 0.72 0.12 75;
+
+    --gold: #c9a45a;
+    --gold-light: #e0bc78;
+    --dark-bg: #0b0f12;
+    --dark-card: #1a2024;
+    --dark-card2: #232b30;
+    --glass-bg: rgba(26, 32, 36, 0.7);
+    --glass-border: rgba(201, 164, 90, 0.15);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background: linear-gradient(135deg, #0b0f12 0%, #141a1e 100%);
+    min-height: 100vh;
+    font-family: "Inter", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: "Playfair Display", serif;
+  }
+}
+
+@layer components {
+  /* ─── FIX 3: Glass panels with top-edge light catch ───────────────────── */
+  .glass-panel {
+    background: rgba(22, 28, 33, 0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(201, 164, 90, 0.14);
+    border-radius: 16px;
+    /* Inner top-edge highlight simulates glass surface catching overhead light */
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 -1px 0
+      rgba(0, 0, 0, 0.3), 0 32px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px
+      rgba(201, 164, 90, 0.06);
+  }
+
+  .glass-card {
+    background: rgba(26, 32, 36, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 164, 90, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(201, 164, 90, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 20px 60px
+      rgba(0, 0, 0, 0.5), 0 0 30px rgba(201, 164, 90, 0.08);
+    transform: translateY(-4px);
+  }
+
+  /* ─── FIX 1: Gold button — refined shine ─────────────────────────────── */
+  .gold-btn {
+    background: linear-gradient(
+      135deg,
+      #b8903e 0%,
+      #e0bc78 45%,
+      #c9a45a 70%,
+      #a07830 100%
+    );
+    color: #0e1114;
+    font-weight: 700;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    padding: 13px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(201, 164, 90, 0.35), inset 0 1px 0
+      rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Shine sweep on hover */
+  .gold-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.25),
+      transparent
+    );
+    transition: left 0.5s ease;
+    pointer-events: none;
+  }
+
+  .gold-btn:hover::after {
+    left: 160%;
+  }
+
+  .gold-btn:hover {
+    box-shadow: 0 8px 36px rgba(201, 164, 90, 0.55), inset 0 1px 0
+      rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    background: linear-gradient(
+      135deg,
+      #c9a45a 0%,
+      #f0cc88 45%,
+      #e0bc78 70%,
+      #b8903e 100%
+    );
+  }
+
+  .outline-btn {
+    background: transparent;
+    color: #c9a45a;
+    font-weight: 600;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid rgba(201, 164, 90, 0.45);
+    border-radius: 50px;
+    padding: 13px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .outline-btn:hover {
+    background: rgba(201, 164, 90, 0.08);
+    border-color: #c9a45a;
+    box-shadow: 0 0 20px rgba(201, 164, 90, 0.15);
+    transform: translateY(-1px);
+  }
+
+  /* ─── FIX 2: Car card — image-first layout, gold hover accent ────────── */
+  .car-card {
+    background: #141a1e;
+    border: 1px solid rgba(201, 164, 90, 0.1);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    position: relative;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Gold accent line along bottom — reveals on hover */
+  .car-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c9a45a, transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .car-card:hover::after {
+    opacity: 1;
+  }
+
+  .car-card:hover {
+    border-color: rgba(201, 164, 90, 0.3);
+    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.65), 0 0 0 1px
+      rgba(201, 164, 90, 0.12), 0 0 50px rgba(201, 164, 90, 0.07);
+    transform: translateY(-7px) rotateX(1.5deg);
+  }
+
+  .section-eyebrow {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #c9a45a;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Gold dash prefix on eyebrows */
+  .section-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: #c9a45a;
+    opacity: 0.8;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #f2f2ee;
+    line-height: 1.15;
+  }
+
+  /* ─── FIX 1: Metallic gold text gradient ─────────────────────────────── */
+  .gold-text {
+    background: linear-gradient(
+      135deg,
+      #b8903e 0%,
+      #e8c870 40%,
+      #c9a45a 65%,
+      #a07830 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    /* Fallback for non-supporting browsers */
+    color: #c9a45a;
+  }
+
+  .muted-text {
+    color: #a8b0b6;
+  }
+
+  .sticky-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(8, 11, 14, 0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(201, 164, 90, 0.08);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03), 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .price-tag {
+    font-family: "Playfair Display", serif;
+    background: linear-gradient(135deg, #c9a45a 0%, #f0cc88 50%, #c9a45a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #c9a45a;
+    font-weight: 800;
+  }
+
+  .spec-item {
+    background: rgba(30, 38, 44, 0.8);
+    border-radius: 8px;
+    padding: 9px 8px;
+    text-align: center;
+    border: 1px solid rgba(201, 164, 90, 0.07);
+    transition: border-color 0.2s ease;
+  }
+
+  .car-card:hover .spec-item {
+    border-color: rgba(201, 164, 90, 0.14);
+  }
+
+  .spec-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #717b82;
+    display: block;
+  }
+
+  .spec-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: #e8ede8;
+    display: block;
+    margin-top: 3px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-gradient {
+    background: linear-gradient(
+      90deg,
+      rgba(11, 15, 18, 0.95) 0%,
+      rgba(11, 15, 18, 0.7) 60%,
+      rgba(11, 15, 18, 0.2) 100%
+    );
+  }
+
+  .input-dark {
+    background: rgba(30, 38, 44, 0.9);
+    border: 1px solid rgba(201, 164, 90, 0.18);
+    border-radius: 8px;
+    color: #f2f2ee;
+    padding: 13px 16px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  .input-dark:focus {
+    border-color: rgba(201, 164, 90, 0.55);
+    box-shadow: 0 0 0 3px rgba(201, 164, 90, 0.07), inset 0 1px 0
+      rgba(255, 255, 255, 0.03);
+  }
+
+  .input-dark::placeholder {
+    color: #6b7580;
+  }
+
+  .whatsapp-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 200;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #1ebe5d, #25d366);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), inset 0 1px 0
+      rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .whatsapp-float:hover {
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 8px 32px rgba(37, 211, 102, 0.55), inset 0 1px 0
+      rgba(255, 255, 255, 0.2);
+  }
+
+  .divider-gold {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(201, 164, 90, 0.6),
+      transparent
+    );
+    margin: 16px 0;
+  }
+
+  /* ─── FIX 3: Trust cards with hover glow bloom ───────────────────────── */
+  .trust-card {
+    background: rgba(20, 26, 30, 0.7);
+    border: 1px solid rgba(201, 164, 90, 0.1);
+    border-radius: 14px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.35s ease;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .trust-card:hover {
+    background: rgba(28, 35, 40, 0.9);
+    border-color: rgba(201, 164, 90, 0.28);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 16px 48px
+      rgba(0, 0, 0, 0.5), 0 0 40px rgba(201, 164, 90, 0.08);
+    transform: translateY(-5px);
+  }
+
+  .stat-block {
+    text-align: center;
+    padding: 28px 16px;
+  }
+
+  .stat-number {
+    font-family: "Playfair Display", serif;
+    font-size: 44px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #c9a45a 0%, #f0cc88 50%, #c9a45a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #c9a45a;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #717b82;
+    margin-top: 10px;
+  }
+}
